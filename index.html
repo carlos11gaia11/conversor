@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Conversor</title>
+  <!-- Link para o W3.CSS -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <style>
+    /* Estilos para a tela de introdução */
+    #intro {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #ff1fce;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    #intro img {
+      width: 150px;
+      border-radius: 50%;
+      margin-top: 20px;
+    }
+
+    /* Tela de introdução com foto inicial */
+    #initial-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #ff1fce;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    /* Tela de escolha de usuário */
+    #user-selection {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #0077ff;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .user-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px 32px;
+      margin: 10px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .user-button:hover {
+      background-color: #45a049;
+    }
+
+    /* Animação de desaparecer */
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    /* Esconde a página principal até o intro sumir */
+    #main-content {
+      display: none;
+    }
+
+    .calculator-container {
+      margin: 20px auto;
+      max-width: 500px;
+      padding: 20px;
+      background-color: #f1f1f1;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .calculator-container h3 {
+      margin-bottom: 20px;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Foto Inicial (antes da tela de escolha de usuário) -->
+  <div id="initial-image">
+    <img src="robsu.png" alt="Imagem inicial"> <!-- Substitua com a foto desejada -->
+  </div>
+
+  <!-- Tela de escolha de usuário -->
+  <div id="user-selection" style="display: none;">
+    <h1>Você é quem?</h1>
+    <button class="user-button" onclick="selectUser('karolayne')">Karolayne</button>
+    <button class="user-button" onclick="selectUser('ediene')">Ediene</button>
+  </div>
+
+  <!-- Tela de introdução -->
+  <div id="intro" style="display: none;">
+    <h1 id="user-name">Olá!</h1>
+    <img id="user-photo" src="" alt="Foto de Perfil">
+  </div>
+
+  <div id="main-content" style="display: none;">
+    <header class="w3-container w3-blue w3-center w3-padding-32">
+      <h1>Conversor de preço do <b>Robson</b></h1>
+      <p>Vamos calcular o novo preço 2025 de produtos System Jet!</p>
+    </header>
+
+    <!-- Calculadora -->
+    <div class="calculator-container w3-card w3-center">
+      <h3>Calcule o novo preço do seu produto</h3>
+      <label for="productPrice">Meu produto custa (em reais):</label>
+      <input class="w3-center w3-input w3-border" type="number" id="productPrice" placeholder="Digite o valor em R$">
+      <button class="w3-button w3-blue w3-margin-top" onclick="calculatePrice()">Calcular</button>
+      <button class="w3-button w3-green w3-margin-top" onclick="addTenPercent()">+10%</button>
+      <button class="w3-button w3-red w3-margin-top" onclick="applyDiscount()">-5%</button>
+      <p class="result" id="result"></p>
+    </div>
+  </div>
+
+  <script>
+    let finalPrice = 0; // Variável global para armazenar o preço calculado
+
+    // Função para selecionar o usuário
+    function selectUser(user) {
+      const introDiv = document.getElementById('intro');
+      const userName = document.getElementById('user-name');
+      const userPhoto = document.getElementById('user-photo');
+
+      // Define a imagem e o nome conforme a escolha do usuário
+      if (user === 'karolayne') {
+        userName.innerText = 'Olá Karolayne!';
+        userPhoto.src = 'karol.png'; // Substitua pela foto da Karolayne
+      } else if (user === 'ediene') {
+        userName.innerText = 'Olá Ediene!';
+        userPhoto.src = 'ediene.png'; // Substitua pela foto da Ediene
+      }
+
+      // Exibe a tela de introdução
+      introDiv.style.display = 'flex';
+      document.getElementById('user-selection').style.display = 'none';
+
+      // Mostra o conteúdo principal após a introdução
+      setTimeout(function() {
+        introDiv.style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+      }, 3000); // Tempo de 3 segundos
+    }
+
+    // Função para calcular o novo preço
+    function calculatePrice() {
+      const dolarAtual = 5.50; // Cotação atual
+      const dolarNovo = 6.50; // Nova cotação
+      const productPrice = parseFloat(document.getElementById("productPrice").value);
+
+      if (isNaN(productPrice) || productPrice <= 0) {
+        document.getElementById("result").innerText = "Por favor, insira um valor válido.";
+        return;
+      }
+
+      // Calcula o preço do produto com a nova cotação
+      finalPrice = (productPrice / dolarAtual) * dolarNovo;
+
+      // Exibe o resultado
+      document.getElementById("result").innerText = 
+        `Se o dólar estivesse R$6,50, o preço do seu produto seria: R$${finalPrice.toFixed(2)}`;
+    }
+
+    // Função para adicionar 10% ao resultado
+    function addTenPercent() {
+      if (finalPrice === 0) {
+        document.getElementById("result").innerText = "Por favor, calcule o preço primeiro antes de adicionar 10%.";
+        return;
+      }
+
+      // Adiciona 10% ao valor final
+      finalPrice += finalPrice * 0.10;
+
+      // Exibe o novo resultado
+      document.getElementById("result").innerText = 
+        `Com +10%, o novo preço do seu produto seria: R$${finalPrice.toFixed(2)}`;
+    }
+
+    // Função para aplicar 5% de desconto ao resultado
+    function applyDiscount() {
+      if (finalPrice === 0) {
+        document.getElementById("result").innerText = "Por favor, calcule o preço primeiro antes de aplicar o desconto.";
+        return;
+      }
+
+      // Aplica 5% de desconto ao valor final
+      finalPrice -= finalPrice * 0.05;
+
+      // Exibe o novo resultado
+      document.getElementById("result").innerText = 
+        `Com -5%, o novo preço do seu produto seria: R$${finalPrice.toFixed(2)}`;
+    }
+
+    // Mostrar a foto inicial por 2 segundos antes de passar para a escolha de usuário
+    window.onload = function() {
+      setTimeout(function() {
+        document.getElementById('initial-image').style.display = 'none';
+        document.getElementById('user-selection').style.display = 'flex';
+      }, 2000); // Tempo de 2 segundos para mostrar a imagem inicial
+    };
+  </script>
+</body>
+</html>
