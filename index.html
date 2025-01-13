@@ -29,20 +29,6 @@
       margin-top: 20px;
     }
 
-    /* Tela de introdução com foto inicial */
-    #initial-image {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #ff1fce;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
     /* Tela de escolha de usuário */
     #user-selection {
       position: fixed;
@@ -109,13 +95,8 @@
 </head>
 <body>
 
-  <!-- Foto Inicial (antes da tela de escolha de usuário) -->
-  <div id="initial-image">
-    <img src="robsu.png" alt="Imagem inicial"> <!-- Substitua com a foto desejada -->
-  </div>
-
   <!-- Tela de escolha de usuário -->
-  <div id="user-selection" style="display: none;">
+  <div id="user-selection">
     <h1>Você é quem?</h1>
     <button class="user-button" onclick="selectUser('karolayne')">Karolayne</button>
     <button class="user-button" onclick="selectUser('ediene')">Ediene</button>
@@ -222,14 +203,6 @@
       document.getElementById("result").innerText = 
         `Com -5%, o novo preço do seu produto seria: R$${finalPrice.toFixed(2)}`;
     }
-
-    // Mostrar a foto inicial por 2 segundos antes de passar para a escolha de usuário
-    window.onload = function() {
-      setTimeout(function() {
-        document.getElementById('initial-image').style.display = 'none';
-        document.getElementById('user-selection').style.display = 'flex';
-      }, 2000); // Tempo de 2 segundos para mostrar a imagem inicial
-    };
   </script>
 </body>
 </html>
