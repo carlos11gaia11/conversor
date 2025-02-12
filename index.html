@@ -95,18 +95,17 @@
 </head>
 <body>
 
-  <!-- Tela de escolha de usuário -->
-  <div id="user-selection">
-    <h1>Você é quem?</h1>
-    <button class="user-button" onclick="selectUser('karolayne')">Karolayne</button>
-    <button class="user-button" onclick="selectUser('ediene')">Ediene</button>
-  </div>
+<div id="user-selection">
+  <h1>Você é quem?</h1>
+  <button class="user-button" onclick="selectUser('karolayne')">Karolayne</button>
+  <button class="user-button" onclick="selectUser('ediene')">Ediene</button>
+  <button class="user-button" onclick="selectUser('Rafaela')">Rafaela</button> <!-- Novo botão para o Rafaela -->
+</div>
 
-  <!-- Tela de introdução -->
-  <div id="intro" style="display: none;">
-    <h1 id="user-name">Olá!</h1>
-    <img id="user-photo" src="" alt="Foto de Perfil">
-  </div>
+<div id="intro" style="display: none;">
+  <h1 id="user-name">Olá!</h1>
+  <img id="user-photo" src="" alt="Foto de Perfil">
+</div>
 
   <div id="main-content" style="display: none;">
     <header class="w3-container w3-blue w3-center w3-padding-32">
@@ -129,31 +128,34 @@
   <script>
     let finalPrice = 0; // Variável global para armazenar o preço calculado
 
-    // Função para selecionar o usuário
-    function selectUser(user) {
-      const introDiv = document.getElementById('intro');
-      const userName = document.getElementById('user-name');
-      const userPhoto = document.getElementById('user-photo');
+// Função para selecionar o usuário
+  function selectUser(user) {
+    const introDiv = document.getElementById('intro');
+    const userName = document.getElementById('user-name');
+    const userPhoto = document.getElementById('user-photo');
 
-      // Define a imagem e o nome conforme a escolha do usuário
-      if (user === 'karolayne') {
-        userName.innerText = 'Olá Karolayne!';
-        userPhoto.src = 'karol.png'; // Substitua pela foto da Karolayne
-      } else if (user === 'ediene') {
-        userName.innerText = 'Olá Ediene!';
-        userPhoto.src = 'ediene.png'; // Substitua pela foto da Ediene
-      }
-
-      // Exibe a tela de introdução
-      introDiv.style.display = 'flex';
-      document.getElementById('user-selection').style.display = 'none';
-
-      // Mostra o conteúdo principal após a introdução
-      setTimeout(function() {
-        introDiv.style.display = 'none';
-        document.getElementById('main-content').style.display = 'block';
-      }, 3000); // Tempo de 3 segundos
+    // Define a imagem e o nome conforme a escolha do usuário
+    if (user === 'karolayne') {
+      userName.innerText = 'Olá Karolayne!';
+      userPhoto.src = 'karol.png'; // Substitua pela foto da Karolayne
+    } else if (user === 'ediene') {
+      userName.innerText = 'Olá Ediene!';
+      userPhoto.src = 'ediene.png'; // Substitua pela foto da Ediene
+    } else if (user === 'Rafaela') { // Nova condição para o Rafaela
+      window.location.href = 'conversortecnico.html'; // Redireciona para a página conversortecnico.html
+      return; // Interrompe a execução do código abaixo, já que o redirecionamento ocorrerá
     }
+
+    // Exibe a tela de introdução
+    introDiv.style.display = 'flex';
+    document.getElementById('user-selection').style.display = 'none';
+
+    // Mostra o conteúdo principal após a introdução
+    setTimeout(function() {
+      introDiv.style.display = 'none';
+      document.getElementById('main-content').style.display = 'block';
+    }, 3000); // Tempo de 3 segundos
+  }
 
     // Função para calcular o novo preço
     function calculatePrice() {
