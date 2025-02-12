@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversor Técnico</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <style>
+    header {
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 36px;
+      margin: 0;
+    }
+
+    header p {
+      font-size: 18px;
+      margin-top: 10px;
+    }
+
+    .calculator-container {
+      margin: 20px auto;
+      max-width: 500px;
+      padding: 20px;
+      background-color: #f1f1f1;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .calculator-container h3 {
+      margin-bottom: 20px;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .back-button {
+      margin-top: 20px;
+      background-color: #0077ff;
+      color: white;
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .back-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cabeçalho da página -->
+  <header>
+    <h1>Conversor de Preços - Serviço Técnico</h1>
+    <p>Calcule o preço atualizado com base nos valores de KM e Hora Técnica.</p>
+  </header>
+
+  <!-- Calculadora -->
+  <div class="calculator-container w3-card w3-center">
+    <h3>Preencha os valores e calcule:</h3>
+    <label for="kmValue">KM (em unidades):</label>
+    <input class="w3-input w3-border" type="number" id="kmValue" placeholder="Digite o valor de KM">
+    
+    <label for="horaValue">Hora Técnica (em horas):</label>
+    <input class="w3-input w3-border" type="number" id="horaValue" placeholder="Digite o valor de Hora Técnica">
+    
+    <button class="w3-button w3-blue w3-margin-top" onclick="calcular()">Calcular</button>
+
+    <p class="result" id="result"></p>
+    
+    <button class="back-button" onclick="window.location.href='index.html'">Voltar para a página inicial</button>
+  </div>
+
+  <script>
+    // Função para realizar o cálculo
+    function calcular() {
+      // Obter os valores dos campos de entrada
+      const km = parseFloat(document.getElementById("kmValue").value);
+      const hora = parseFloat(document.getElementById("horaValue").value);
+
+      // Validar se os valores são numéricos e positivos
+      if (isNaN(km) || km <= 0 || isNaN(hora) || hora <= 0) {
+        document.getElementById("result").innerText = "Por favor, insira valores válidos e maiores que zero.";
+        return;
+      }
+
+      // Aplicando a fórmula: KM * 3,50 * 2 + Hora Técnica * 302,5
+      const resultado = (km * 3.50 * 2) + (hora * 302.5);
+
+      // Exibir o resultado
+      document.getElementById("result").innerText = 
+        `O valor total é: R$${resultado.toFixed(2)}`;
+    }
+  </script>
+
+</body>
+</html>
