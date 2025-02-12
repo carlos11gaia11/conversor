@@ -100,6 +100,7 @@
   <button class="user-button" onclick="selectUser('karolayne')">Karolayne</button>
   <button class="user-button" onclick="selectUser('ediene')">Ediene</button>
   <button class="user-button" onclick="selectUser('Carlos')">Carlos</button> <!-- Novo botão para o Carlos -->
+  <button class="user-button" onclick="selectUser('Rafaela')">Rafaela</button> <!-- Novo botão para o Rafaela -->
 </div>
 
 <div id="intro" style="display: none;">
@@ -144,7 +145,11 @@
     } else if (user === 'Carlos') { // Nova condição para o Carlos
       window.location.href = 'conversortecnico.html'; // Redireciona para a página conversortecnico.html
       return; // Interrompe a execução do código abaixo, já que o redirecionamento ocorrerá
-    }
+    } else if (user === 'Rafaela') { // Nova condição para o Rafaela
+      window.location.href = 'conversortecnicosp.html'; // Redireciona para a página conversortecnicosp.html
+      return; // Interrompe a execução do código abaixo, já que o redirecionamento ocorrerá
+    } 
+
 
     // Exibe a tela de introdução
     introDiv.style.display = 'flex';
